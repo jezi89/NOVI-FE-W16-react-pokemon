@@ -37,7 +37,7 @@ function PokemonGrid() {
 
 
     function handlePageJump(e) {
-        e.preventDefault();
+        if (e) e.preventDefault();
         const pageNumber = parseInt(pageInputValue);
         if (pageNumber && pageNumber >= 1 && pageNumber <= maxPage) {
             const newOffset = (pageNumber - 1) * itemsPerPage;
@@ -93,34 +93,36 @@ function PokemonGrid() {
                     value="previous"
                     onClick={pageSetter}
                     disabled={currentPage === 1 || isLoading}
+                    className={styles.navButton}
                 >
-                    Previous page
+                    Previous
                 </Button>
-                <span> Page {currentPage} of {maxPage} </span>
+                <span className={styles.pageInfo}> Page {currentPage} of {maxPage} </span>
                 <Button
                     value="next"
                     onClick={pageSetter}
                     disabled={!hasNextPage || isLoading}
+                    className={styles.navButton}
                 >
-                    Next page
+                    Next
                 </Button>
             </div>
 
             <form onSubmit={handlePageJump} className={styles.pageJumpForm}>
-                <label>
-                    Go to Page:
-                    <input
-                        type="number"
-                        min="1"
-                        max={Math.ceil(totalCount / itemsPerPage)}
-                        value={pageInputValue}
-                        onChange={(e) => setPageInputValue(e.target.value)}
-                        className={styles.pageInput}
-                    />
-                </label>
-                <Button type="submit" disabled={isLoading}>
-                    Go
-                </Button>
+                <span className={styles.goToText}>Go to Page:</span>
+                <input
+                    type="number"
+                    min="1"
+                    max={Math.ceil(totalCount / itemsPerPage)}
+                    value={pageInputValue}
+                    onChange={(e) => setPageInputValue(e.target.value)}
+                    className={styles.pageInput}
+                />
+                <div className={styles.goButtonWrapper}>
+                    <Button type="submit" disabled={isLoading} className={styles.goButton}>
+                        GO!
+                    </Button>
+                </div>
             </form>
 
             {isLoading && <p>Loading pokemons. Hold on.</p>}

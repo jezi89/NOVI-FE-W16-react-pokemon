@@ -1,8 +1,10 @@
 /* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+
 /* Font definitie - via geïmporteerde assets */
 @font-face {
     font-family: 'Pokemon';
-    /* Importeer de font als een module in Vite */
     src: url(./assets/fonts/Pokemon-Solid.ttf) format('truetype');
     font-weight: normal;
     font-style: normal;
@@ -44,14 +46,16 @@
     --spacing-sm: 10px;
     --spacing-md: 15px;
     --spacing-lg: 20px;
-    --spacing-xl: 25px;
-    --spacing-xxl: 30px;
+    --spacing-xl: 35px;
+    --spacing-xxl: 45px;
 
     /* Typografie */
-    --font-family-base: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --font-family-base: 'Rubik', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --font-family-accent: 'Rubik', sans-serif;
     --font-family-pokemon: 'Pokemon', sans-serif;
     --font-family-pokemon-hollow: 'Pokemon Hollow', sans-serif;
     --line-height-base: 1.5;
+    --font-weight-light: 300;
     --font-weight-normal: 400;
     --font-weight-bold: 600;
     --font-weight-extra-bold: 700;
@@ -83,7 +87,7 @@ body {
 /* Pokemon title styling - met solid variant en verbeterde leesbaarheid */
 .title {
     font-family: var(--font-family-pokemon);
-    font-size: 2.2rem;
+    font-size: 3.2rem;
     color: var(--color-primary);
     text-shadow: 2px 2px 0px var(--color-secondary), 3px 3px 0px rgba(0, 0, 0, 0.15);
     text-transform: uppercase;
@@ -98,26 +102,15 @@ body {
 
 /* Sterk vereenvoudigde Pokemon naam styling met flex voor perfecte centrering */
 .pokemonName {
-    /* Gebruik de solid variant voor betere zichtbaarheid */
-    font-family: var(--font-family-pokemon);
+    /* Gebruik de hollow variant voor betere interne letterruimte */
+    font-family: var(--font-family-pokemon-hollow);
     color: white;
     background-color: var(--color-primary);
-
-    /* Flex box voor perfecte centrering */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-
-    /* Vaste hoogte om voldoende ruimte te hebben */
-    height: 80px; /* of een andere waarde die goed werkt voor je design */
-
-    /* Overige styling */
-    margin: 0;
     font-size: 2.5rem;
-    letter-spacing: 8px;
+    letter-spacing: 6px;
     text-transform: capitalize;
-    line-height: 1;
     border-bottom: 3px solid var(--color-secondary);
+
 }
 
 /* Media queries */

@@ -7,7 +7,7 @@
 .container {
     max-width: 900px;
     margin: 0 auto;
-    padding: var(--spacing-lg);
+    padding-bottom: var(--spacing-xl);
     text-align: center;
 }
 
@@ -22,7 +22,7 @@
 .linkButton {
     display: inline-block;
     text-decoration: none;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
 }
 
 .pokemonCard {
@@ -33,11 +33,12 @@
     max-width: 100%;
 }
 
-/* Aanpassen van de h2 element voor de Pokemon naam */
 .pokemonCard h2.pokemonName {
-    margin: 0;
-    padding: 0;
-    height: 60px; /* Zelfde hoogte als in de global CSS */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: .2rem;
+    padding-bottom: 1.3rem;
     width: 100%;
 }
 
