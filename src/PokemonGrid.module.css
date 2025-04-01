@@ -134,10 +134,12 @@
 
 /* Style overschrijving voor de grid view */
 .pokemonCardGrid .pokemonName {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     letter-spacing: 2px; /* Kleinere letter-spacing */
     height: auto; /* Reset de vaste hoogte */
-    padding: var(--spacing-sm); /* Kleinere padding */
+    padding-top: var(--spacing-sm); /* Kleinere padding */
+    padding-bottom: var(--spacing-md); /* Kleinere padding */
+    font-weight: var(--font-weight-normal);
 }
 
 .pokemonCardGrid:hover .pokemonName {
