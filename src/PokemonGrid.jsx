@@ -15,8 +15,7 @@ function PokemonGrid() {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageInputValue, setPageInputValue] = useState("");
     const [totalCount, setTotalCount] = useState(0);
-
-    const itemsPerPage = 48;
+    const [itemsPerPage, setItemsPerPage] = useState(48);
 
     useEffect(() => {
         let isMounted = true;
@@ -62,6 +61,26 @@ function PokemonGrid() {
             controller.abort('Component unmounted');
         };
     }, []);
+
+
+    const handleItemsPerPageChange = (e) => {
+        const newValue = parseInt(e.target.value);
+
+        // Bereken huidige offset (startpunt in de totale lijst)
+        const currentOffset = pageStart;
+
+        // Bereken nieuwe paginanummer op basis van huidige offset en nieuwe itemsPerPage
+        const newPage = Math.floor(currentOffset / newValue) + 1;
+        const newOffset = (newPage - 1) * newValue;
+
+        // Update state
+        setItemsPerPage(newValue);
+        setCurrentPage(newPage);
+        setPageStart(newOffset);
+
+        // Haal data op met de nieuwe parameters
+        fetchPokemonList(newValue, newOffset);
+    };
 
     function pageSetter(e) {
         if (e.target.value === "next") {
@@ -163,6 +182,83 @@ function PokemonGrid() {
                 </Button>
             </div>
 
+            {/* Slider voor cards per pagina */}
+            <label htmlFor="items-per-page">Cards per pagina: </label>
+            <span className={styles.sliderValue}>{itemsPerPage}{" "}/ 156</span>
+            <div className={styles.sliderContainer}>
+                {/*<label htmlFor="items-per-page">Cards per pagina: </label>*/}
+                <button
+                    className={styles.sliderButton}
+                    onClick={() => {
+                        const newValue = 32; // Minimum waarde
+                        setItemsPerPage(newValue);
+                        setCurrentPage(1);
+                        setPageStart(0);
+                        fetchPokemonList(newValue, 0);
+                    }}
+                    title="Minimum (32 cards)"
+                >
+                    Min
+                </button>
+                <button
+                    className={styles.sliderButton}
+                    onClick={() => {
+                        const newValue = Math.max(32, itemsPerPage - 8);
+                        setItemsPerPage(newValue);
+                        setCurrentPage(1);
+                        setPageStart(0);
+                        fetchPokemonList(newValue, 0);
+                    }}
+                    disabled={itemsPerPage <= 32}
+                    title="8 cards minder"
+                >
+                    &lt;
+                </button>
+                <div className={styles.sliderWithHint}>
+                    <input
+                        id="items-per-page"
+                        type="range"
+                        min="32"
+                        max="156"
+                        step="8"
+                        value={itemsPerPage}
+                        onChange={handleItemsPerPageChange}
+                        className={styles.slider}
+                        style={{width: "250px"}}
+                    />
+                    <div className={styles.stepHint}>+/- 8</div>
+                </div>
+                <button
+                    className={styles.sliderButton}
+                    onClick={() => {
+                        const newValue = Math.min(156, itemsPerPage + 8);
+                        setItemsPerPage(newValue);
+                        setCurrentPage(1);
+                        setPageStart(0);
+                        fetchPokemonList(newValue, 0);
+                    }}
+                    disabled={itemsPerPage >= 156}
+                    title="8 cards meer"
+                >
+                    &gt;
+                </button>
+                <button
+                    className={styles.sliderButton}
+                    onClick={() => {
+                        const newValue = 156; // Maximum waarde
+                        setItemsPerPage(newValue);
+                        setCurrentPage(1);
+                        setPageStart(0);
+                        fetchPokemonList(newValue, 0);
+                    }}
+                    title="Maximum (156 cards)"
+                >
+                    Max
+                </button>
+
+            </div>
+
+
             <form onSubmit={handlePageJump} className={styles.pageJumpForm}>
                 <span className={styles.goToText}>Go to Page:</span>
                 <input
@@ -212,15 +308,14 @@ function PokemonGrid() {
                                         </ul>
                                     </div>
                                 </article>
-
                             </Link>
-
                         ) : (
                             <p>Loading {pokemon.name}...</p>
                         )}
                     </div>
                 ))}
             </div>
+
             <div className={styles.paginationControls}>
                 <Button
                     value="previous"

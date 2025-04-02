@@ -35,7 +35,7 @@
     cursor: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png') 12 12, pointer;
 }
 
-.button:disabled {
+.button:disabled{
     background-color: var(--color-medium-gray);
     color: var(--color-dark-gray);
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="%23d11a2d"/><path d="M19.8 4.2L4.2 19.8" stroke="white" stroke-width="4" stroke-linecap="round"/></svg>') 12 12, not-allowed;

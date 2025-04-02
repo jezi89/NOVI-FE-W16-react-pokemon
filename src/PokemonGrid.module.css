@@ -29,6 +29,72 @@
     border-radius: var(--radius-medium);
 }
 
+.sliderContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.sliderWithHint {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stepHint {
+    font-size: 0.7rem;
+    color: var(--color-primary);
+    margin-top: 2px;
+    opacity: 0.7;
+}
+
+.slider {
+    width: 200px;
+    height: 25px;
+}
+
+.sliderValue {
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+    color: var(--color-primary);
+}
+
+.maxValueIndicator {
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+.sliderButton {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-small);
+    min-width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    padding: 0 5px;
+}
+
+.sliderButton:hover {
+    background-color: var(--color-secondary);
+}
+
+.sliderButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
 .pageJumpForm {
     display: flex;
     align-items: center;
