@@ -15,6 +15,7 @@ function PokemonDetail() {
 
     useEffect(() => {
         let isMounted = true;
+        const controller = new AbortController();
 
         async function fetchPokemonData() {
             try {
@@ -22,20 +23,27 @@ function PokemonDetail() {
                 setError(null);
 
                 // Fetch basic Pokemon data
-                const pokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+                const pokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`, {
+                    signal: controller.signal
+                });
 
                 if (isMounted) {
                     setPokemon(pokemonResponse.data);
 
                     // Fetch additional species data
-                    const speciesResponse = await axios.get(pokemonResponse.data.species.url);
+                    const speciesResponse = await axios.get(pokemonResponse.data.species.url, {
+                        signal: controller.signal
+                    });
+                    
                     if (isMounted) {
                         setSpeciesData(speciesResponse.data);
                     }
                 }
             } catch (error) {
-                console.error("Error fetching Pokemon details", error);
-                if (isMounted) {
+                if (axios.isAxiosError(error) && error.name === 'CanceledError') {
+                    console.log('Request canceled:', error.message);
+                } else if (isMounted) {
+                    console.error("Error fetching Pokemon details", error);
                     setError("Failed to load Pokemon details");
                 }
             } finally {
@@ -49,6 +57,7 @@ function PokemonDetail() {
 
         return () => {
             isMounted = false;
+            controller.abort('Component unmounted');
         };
     }, [name]);
 

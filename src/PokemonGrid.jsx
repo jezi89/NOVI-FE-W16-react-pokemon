@@ -20,14 +20,14 @@ function PokemonGrid() {
 
     useEffect(() => {
         let isMounted = true;
-        const cancelTokenSource = axios.CancelToken.source();
+        const controller = new AbortController();
 
         async function fetchPokemonList(limit, offset) {
             try {
                 setIsLoading(true);
                 setError(null);
                 const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`, {
-                    cancelToken: cancelTokenSource.token
+                    signal: controller.signal
                 });
 
                 if (isMounted) {
@@ -38,11 +38,11 @@ function PokemonGrid() {
 
                     // Fetch details for each Pokemon
                     response.data.results.forEach(pokemon => {
-                        fetchPokemonDetails(pokemon.url, cancelTokenSource.token);
+                        fetchPokemonDetails(pokemon.url, controller.signal);
                     });
                 }
             } catch (error) {
-                if (axios.isCancel(error)) {
+                if (axios.isAxiosError(error) && error.name === 'CanceledError') {
                     console.log('Request canceled:', error.message);
                 } else if (isMounted) {
                     console.error("Error fetching Pokemon list", error);
@@ -59,7 +59,7 @@ function PokemonGrid() {
 
         return () => {
             isMounted = false;
-            cancelTokenSource.cancel('Component unmounted');
+            controller.abort('Component unmounted');
         };
     }, []);
 
@@ -91,10 +91,13 @@ function PokemonGrid() {
     }
 
     async function fetchPokemonList(limit, offset) {
+        const controller = new AbortController();
         try {
             setIsLoading(true);
             setError(null);
-            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`);
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`, {
+                signal: controller.signal
+            });
             setPokemonList(response.data.results);
             setTotalCount(response.data.count);
             // Reset pokemon details when fetching new list
@@ -102,25 +105,35 @@ function PokemonGrid() {
 
             // Fetch details for each Pokemon
             response.data.results.forEach(pokemon => {
-                fetchPokemonDetails(pokemon.url);
+                fetchPokemonDetails(pokemon.url, controller.signal);
             });
         } catch (error) {
-            console.error("Error fetching Pokemon list", error);
-            setError("Failed to load Pokemon list");
+            if (axios.isAxiosError(error) && error.name === 'CanceledError') {
+                console.log('Request canceled:', error.message);
+            } else {
+                console.error("Error fetching Pokemon list", error);
+                setError("Failed to load Pokemon list");
+            }
         } finally {
             setIsLoading(false);
         }
+        
+        return controller; // Return the controller in case we need to abort later
     }
 
-    async function fetchPokemonDetails(url) {
+    async function fetchPokemonDetails(url, signal) {
         try {
-            const response = await axios.get(url);
+            const response = await axios.get(url, { signal });
             setPokemonDetails(prev => ({
                 ...prev,
                 [response.data.name]: response.data
             }));
         } catch (error) {
-            console.error(`Error fetching Pokemon details`, error);
+            if (axios.isAxiosError(error) && error.name === 'CanceledError') {
+                console.log('Request canceled:', error.message);
+            } else {
+                console.error(`Error fetching Pokemon details`, error);
+            }
         }
     }
 
