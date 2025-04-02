@@ -16,7 +16,7 @@ function PokemonGrid() {
     const [pageInputValue, setPageInputValue] = useState("");
     const [totalCount, setTotalCount] = useState(0);
 
-    const itemsPerPage = 20;
+    const itemsPerPage = 48;
 
     useEffect(() => {
         let isMounted = true;
@@ -117,13 +117,13 @@ function PokemonGrid() {
         } finally {
             setIsLoading(false);
         }
-        
+
         return controller; // Return the controller in case we need to abort later
     }
 
     async function fetchPokemonDetails(url, signal) {
         try {
-            const response = await axios.get(url, { signal });
+            const response = await axios.get(url, {signal});
             setPokemonDetails(prev => ({
                 ...prev,
                 [response.data.name]: response.data

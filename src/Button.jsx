@@ -9,6 +9,7 @@ function Button({children, onClick, disabled, type = 'button', value, className}
             value={value}
             className={`${styles.button} ${className || ''}`}
         >
+
             {children}
         </button>
     );
