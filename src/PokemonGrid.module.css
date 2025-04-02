@@ -1,5 +1,5 @@
 .container {
-    max-width: 1800px;
+    max-width: 90vw;
     margin: 0 auto;
     padding: var(--spacing-lg);
     text-align: center;
@@ -52,8 +52,23 @@
 }
 
 .slider {
-    width: 200px;
+    width: 250px;
     height: 25px;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    cursor: pointer;
+}
+
+/* Add a stronger visual indicator when at max value */
+input[type="range"][value="160"]::-webkit-slider-thumb {
+    background: var(--color-secondary);
+    transform: scale(1.2);
 }
 
 .sliderValue {
@@ -90,10 +105,15 @@
 }
 
 .sliderButton:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+    background-color: var(--color-medium-gray);
+    color: var(--color-dark-gray);
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="%23d11a2d"/><path d="M19.8 4.2L4.2 19.8" stroke="white" stroke-width="4" stroke-linecap="round"/></svg>') 12 12, not-allowed;
+    box-shadow: none;
+    top: 0;
     opacity: 0.7;
+    transform: none;
 }
+
 
 .pageJumpForm {
     display: flex;

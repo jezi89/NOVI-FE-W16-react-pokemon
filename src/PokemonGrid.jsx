@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import styles from "./PokemonGrid.module.css";
@@ -157,7 +157,9 @@ function PokemonGrid() {
     }
 
     const hasNextPage = pageStart + itemsPerPage < totalCount;
-
+    const minCardValue = 36
+    const maxCardValue = 160
+    const stepValue = 12
 
     return (
         <div className={styles.container}>
@@ -184,74 +186,77 @@ function PokemonGrid() {
 
             {/* Slider voor cards per pagina */}
             <label htmlFor="items-per-page">Cards per pagina: </label>
-            <span className={styles.sliderValue}>{itemsPerPage}{" "}/ 156</span>
+            <span className={styles.sliderValue}>{itemsPerPage}{" "}/ {maxCardValue}</span>
             <div className={styles.sliderContainer}>
                 {/*<label htmlFor="items-per-page">Cards per pagina: </label>*/}
                 <button
                     className={styles.sliderButton}
                     onClick={() => {
-                        const newValue = 32; // Minimum waarde
+                        const newValue = {minCardValue}; // Minimum waarde
                         setItemsPerPage(newValue);
                         setCurrentPage(1);
                         setPageStart(0);
                         fetchPokemonList(newValue, 0);
                     }}
-                    title="Minimum (32 cards)"
+                    disabled={itemsPerPage <= {minCardValue}}  // Disabled when already at minimum
+                    title={`Minimum (${minCardValue} cards)`}
                 >
                     Min
                 </button>
                 <button
                     className={styles.sliderButton}
                     onClick={() => {
-                        const newValue = Math.max(32, itemsPerPage - 8);
+                        const newValue = Math.max(minCardValue, itemsPerPage - {stepValue});
                         setItemsPerPage(newValue);
                         setCurrentPage(1);
                         setPageStart(0);
                         fetchPokemonList(newValue, 0);
                     }}
-                    disabled={itemsPerPage <= 32}
-                    title="8 cards minder"
+                    disabled={itemsPerPage <= {minCardValue}}
+                    title={`${minCardValue} cards less`}
                 >
                     &lt;
+
                 </button>
                 <div className={styles.sliderWithHint}>
                     <input
                         id="items-per-page"
                         type="range"
-                        min="32"
-                        max="156"
-                        step="8"
+                        min={minCardValue}
+                        max={maxCardValue}
+                        step={stepValue}
                         value={itemsPerPage}
                         onChange={handleItemsPerPageChange}
                         className={styles.slider}
                         style={{width: "250px"}}
                     />
-                    <div className={styles.stepHint}>+/- 8</div>
+                    <div className={styles.stepHint}>{`+/- ${stepValue}`}</div>
                 </div>
                 <button
                     className={styles.sliderButton}
                     onClick={() => {
-                        const newValue = Math.min(156, itemsPerPage + 8);
+                        const newValue = Math.min(maxCardValue, itemsPerPage + stepValue);
                         setItemsPerPage(newValue);
                         setCurrentPage(1);
                         setPageStart(0);
                         fetchPokemonList(newValue, 0);
                     }}
-                    disabled={itemsPerPage >= 156}
-                    title="8 cards meer"
+                    disabled={itemsPerPage >= {maxCardValue}}
+                    title={`${stepValue} cards meer`}
                 >
                     &gt;
                 </button>
                 <button
                     className={styles.sliderButton}
                     onClick={() => {
-                        const newValue = 156; // Maximum waarde
+                        const newValue = {maxCardValue}; // Maximum waarde
                         setItemsPerPage(newValue);
                         setCurrentPage(1);
                         setPageStart(0);
                         fetchPokemonList(newValue, 0);
                     }}
-                    title="Maximum (156 cards)"
+                    disabled={itemsPerPage >= {maxCardValue}}  // Disabled when already at maximum
+                    title={`Maximum (${maxCardValue} cards)`}
                 >
                     Max
                 </button>
