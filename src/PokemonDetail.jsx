@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {useParams, Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
 import styles from "./PokemonDetail.module.css";
 import {round} from "./helpers/numberHelper.js";
 import Button from "./Button.jsx";
 
 function PokemonDetail() {
+    const navigate = useNavigate();
     const {name} = useParams();
     const [pokemon, setPokemon] = useState(null);
     const [speciesData, setSpeciesData] = useState(null);
@@ -62,9 +63,7 @@ function PokemonDetail() {
     return (
         <section className={styles.pageWrapper}>
             <div className={styles.container}>
-                <Link to="/" className={styles.linkButton}>
-                    <Button>Back to List</Button>
-                </Link>
+                <Button onClick={() => navigate('/')}>Back to List</Button>
 
                 <h1 className={`${styles.title} title`}>Pokemon Details</h1>
                 {isLoading && <p>Loading Pokemon details...</p>}

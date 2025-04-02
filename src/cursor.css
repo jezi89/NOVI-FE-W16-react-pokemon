@@ -1,0 +1,23 @@
+/* cursor.css - voor aangepaste cursor styling */
+
+/* Definieer een CSS klasse die we kunnen toepassen op het body element */
+.pokeball-cursor {
+    cursor: default; /* Standaard cursor als fallback */
+}
+
+/* Normale actieve elementen krijgen de Pokéball cursor */
+.pokeball-cursor a,
+.pokeball-cursor input[type="submit"]:not(:disabled),
+.pokeball-cursor .pokemonCardGrid,
+.pokeball-cursor .pageInput,
+.pokeball-cursor select:not(:disabled),
+.pokeball-cursor .pokemonLink {
+    cursor: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png') 12 12, pointer;
+}
+
+/* De standaard Button componenten en hun states worden hier behandeld */
+.pokeball-cursor button:not(:disabled) {
+    cursor: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png') 12 12, pointer;
+}
+
+/* De GoPokemonButton heeft zijn eigen cursor styling in zijn eigen CSS module */

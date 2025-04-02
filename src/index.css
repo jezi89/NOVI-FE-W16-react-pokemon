@@ -68,11 +68,7 @@
     padding: 0;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-}
-
+/* Aangepaste cursor voor de hele applicatie */
 body {
     font-family: var(--font-family-base);
     line-height: var(--line-height-base);
@@ -82,6 +78,19 @@ body {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* Pokéball cursor voor interactieve elementen - meerdere notaties voor betere browserondersteuning */
+button, 
+a, 
+input[type="submit"],
+.pokemonCardGrid,
+.pageInput,
+select,
+.pokemonLink {
+    cursor: url('/src/assets/cursors/pokeball-cursor.svg') 12 12, 
+           url('./assets/cursors/pokeball-cursor.svg') 12 12, 
+           pointer;
 }
 
 /* Pokemon title styling - met solid variant en verbeterde leesbaarheid */

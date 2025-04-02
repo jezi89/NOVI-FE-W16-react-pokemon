@@ -4,6 +4,7 @@ import axios from "axios";
 import styles from "./PokemonGrid.module.css";
 import {round} from "./helpers/numberHelper.js";
 import Button from "./Button.jsx";
+import GoPokemonButton from "./GoPokemonButton.jsx";
 
 function PokemonGrid() {
     const [pokemonList, setPokemonList] = useState([]);
@@ -18,7 +19,48 @@ function PokemonGrid() {
     const itemsPerPage = 20;
 
     useEffect(() => {
+        let isMounted = true;
+        const cancelTokenSource = axios.CancelToken.source();
+
+        async function fetchPokemonList(limit, offset) {
+            try {
+                setIsLoading(true);
+                setError(null);
+                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`, {
+                    cancelToken: cancelTokenSource.token
+                });
+
+                if (isMounted) {
+                    setPokemonList(response.data.results);
+                    setTotalCount(response.data.count);
+                    // Reset pokemon details when fetching new list
+                    setPokemonDetails({});
+
+                    // Fetch details for each Pokemon
+                    response.data.results.forEach(pokemon => {
+                        fetchPokemonDetails(pokemon.url, cancelTokenSource.token);
+                    });
+                }
+            } catch (error) {
+                if (axios.isCancel(error)) {
+                    console.log('Request canceled:', error.message);
+                } else if (isMounted) {
+                    console.error("Error fetching Pokemon list", error);
+                    setError("Failed to load Pokemon list");
+                }
+            } finally {
+                if (isMounted) {
+                    setIsLoading(false);
+                }
+            }
+        }
+
         fetchPokemonList(itemsPerPage, 0);
+
+        return () => {
+            isMounted = false;
+            cancelTokenSource.cancel('Component unmounted');
+        };
     }, []);
 
     function pageSetter(e) {
@@ -119,9 +161,9 @@ function PokemonGrid() {
                     className={styles.pageInput}
                 />
                 <div className={styles.goButtonWrapper}>
-                    <Button type="submit" disabled={isLoading} className={styles.goButton}>
+                    <GoPokemonButton type="submit" disabled={isLoading}>
                         GO!
-                    </Button>
+                    </GoPokemonButton>
                 </div>
             </form>
 
@@ -157,12 +199,33 @@ function PokemonGrid() {
                                         </ul>
                                     </div>
                                 </article>
+
                             </Link>
+
                         ) : (
                             <p>Loading {pokemon.name}...</p>
                         )}
                     </div>
                 ))}
+            </div>
+            <div className={styles.paginationControls}>
+                <Button
+                    value="previous"
+                    onClick={pageSetter}
+                    disabled={currentPage === 1 || isLoading}
+                    className={styles.navButton}
+                >
+                    Previous
+                </Button>
+                <span className={styles.pageInfo}> Page {currentPage} of {maxPage} </span>
+                <Button
+                    value="next"
+                    onClick={pageSetter}
+                    disabled={!hasNextPage || isLoading}
+                    className={styles.navButton}
+                >
+                    Next
+                </Button>
             </div>
         </div>
     );
