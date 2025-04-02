@@ -192,13 +192,13 @@ function PokemonGrid() {
                 <button
                     className={styles.sliderButton}
                     onClick={() => {
-                        const newValue = {minCardValue}; // Minimum waarde
+                        const newValue = minCardValue; // Minimum waarde
                         setItemsPerPage(newValue);
                         setCurrentPage(1);
                         setPageStart(0);
                         fetchPokemonList(newValue, 0);
                     }}
-                    disabled={itemsPerPage <= {minCardValue}}  // Disabled when already at minimum
+                    disabled={itemsPerPage <= minCardValue}  // Disabled when already at minimum
                     title={`Minimum (${minCardValue} cards)`}
                 >
                     Min
@@ -212,7 +212,7 @@ function PokemonGrid() {
                         setPageStart(0);
                         fetchPokemonList(newValue, 0);
                     }}
-                    disabled={itemsPerPage <= {minCardValue}}
+                    disabled={itemsPerPage <= minCardValue}
                     title={`${minCardValue} cards less`}
                 >
                     &lt;
@@ -241,7 +241,7 @@ function PokemonGrid() {
                         setPageStart(0);
                         fetchPokemonList(newValue, 0);
                     }}
-                    disabled={itemsPerPage >= {maxCardValue}}
+                    disabled={itemsPerPage >= maxCardValue}
                     title={`${stepValue} cards meer`}
                 >
                     &gt;
@@ -249,13 +249,13 @@ function PokemonGrid() {
                 <button
                     className={styles.sliderButton}
                     onClick={() => {
-                        const newValue = {maxCardValue}; // Maximum waarde
+                        const newValue = maxCardValue; // Maximum waarde
                         setItemsPerPage(newValue);
                         setCurrentPage(1);
                         setPageStart(0);
                         fetchPokemonList(newValue, 0);
                     }}
-                    disabled={itemsPerPage >= {maxCardValue}}  // Disabled when already at maximum
+                    disabled={itemsPerPage >= maxCardValue}  // Disabled when already at maximum
                     title={`Maximum (${maxCardValue} cards)`}
                 >
                     Max
