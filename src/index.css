@@ -24,7 +24,7 @@
     /* Kleuren */
     --color-primary: #3b5ca8;
     --color-secondary: #ffcb05;
-    --color-background: #f5f5f5;
+    --color-background: #6CD4FF;
     --color-text: #213547;
     --color-white: #ffffff;
     --color-light-gray: #f0f0f0;
@@ -81,16 +81,16 @@ body {
 }
 
 /* Pokéball cursor voor interactieve elementen - meerdere notaties voor betere browserondersteuning */
-button, 
-a, 
+button,
+a,
 input[type="submit"],
 .pokemonCardGrid,
 .pageInput,
 select,
 .pokemonLink {
-    cursor: url('/src/assets/cursors/pokeball-cursor.svg') 12 12, 
-           url('./assets/cursors/pokeball-cursor.svg') 12 12, 
-           pointer;
+    cursor: url('/src/assets/cursors/pokeball-cursor.svg') 12 12,
+    url('./assets/cursors/pokeball-cursor.svg') 12 12,
+    pointer;
 }
 
 /* Pokemon title styling - met solid variant en verbeterde leesbaarheid */

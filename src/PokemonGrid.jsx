@@ -69,7 +69,7 @@ function PokemonGrid() {
         // Bereken huidige offset (startpunt in de totale lijst)
         const currentOffset = pageStart;
 
-        // Bereken nieuwe paginanummer op basis van huidige offset en nieuwe itemsPerPage
+        // Bereken nieuwe pagenummer op basis van huidige offset en nieuwe itemsPerPage
         const newPage = Math.floor(currentOffset / newValue) + 1;
         const newOffset = (newPage - 1) * newValue;
 
@@ -164,7 +164,7 @@ function PokemonGrid() {
     return (
         <div className={styles.container}>
             <h1 className={`${styles.title} title`}>Pokemon Wiki</h1>
-            <div className={styles.paginationControls}>
+            <div className={styles.pagetionControls}>
                 <Button
                     value="previous"
                     onClick={pageSetter}
@@ -184,11 +184,11 @@ function PokemonGrid() {
                 </Button>
             </div>
 
-            {/* Slider voor cards per pagina */}
-            <label htmlFor="items-per-page">Cards per pagina: </label>
+            {/* Slider voor cards per page */}
+            <label htmlFor="items-per-page">Cards per page: </label>
             <span className={styles.sliderValue}>{itemsPerPage}{" "}/ {maxCardValue}</span>
             <div className={styles.sliderContainer}>
-                {/*<label htmlFor="items-per-page">Cards per pagina: </label>*/}
+                {/*<label htmlFor="items-per-page">Cards per page: </label>*/}
                 <button
                     className={styles.sliderButton}
                     onClick={() => {
@@ -321,7 +321,7 @@ function PokemonGrid() {
                 ))}
             </div>
 
-            <div className={styles.paginationControls}>
+            <div className={styles.pagetionControls}>
                 <Button
                     value="previous"
                     onClick={pageSetter}
