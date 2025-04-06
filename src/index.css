@@ -1,69 +1,131 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+
+/* Font definitie - via geïmporteerde assets */
+@font-face {
+    font-family: 'Pokemon';
+    src: url(./assets/fonts/Pokemon-Solid.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pokemon Hollow';
+    src: url(./assets/fonts/Pokemon-Hollow.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* CSS variabelen voor gemakkelijke herbruikbaarheid */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    /* Kleuren */
+    --color-primary: #3b5ca8;
+    --color-secondary: #ffcb05;
+    --color-background: #6CD4FF;
+    --color-text: #213547;
+    --color-white: #ffffff;
+    --color-light-gray: #f0f0f0;
+    --color-medium-gray: #e0e0e0;
+    --color-dark-gray: #777777;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    /* Schaduwen */
+    --shadow-small: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 5px 15px rgba(0, 0, 0, 0.2);
+    --shadow-large: 0 8px 20px rgba(0, 0, 0, 0.3);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+    /* Radius */
+    --radius-small: 5px;
+    --radius-medium: 10px;
+    --radius-large: 15px;
+
+    /* Spacing */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 35px;
+    --spacing-xxl: 45px;
+
+    /* Typografie */
+    --font-family-base: 'Rubik', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --font-family-accent: 'Rubik', sans-serif;
+    --font-family-pokemon: 'Pokemon', sans-serif;
+    --font-family-pokemon-hollow: 'Pokemon Hollow', sans-serif;
+    --line-height-base: 1.5;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-bold: 600;
+    --font-weight-extra-bold: 700;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Basis reset en styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
+/* Aangepaste cursor voor de hele applicatie */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    font-family: var(--font-family-base);
+    line-height: var(--line-height-base);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text);
+    background-color: var(--color-background);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Pokéball cursor voor interactieve elementen - meerdere notaties voor betere browserondersteuning */
+button,
+a,
+input[type="submit"],
+.pokemonCardGrid,
+.pageInput,
+select,
+.pokemonLink {
+    cursor: url('/src/assets/cursors/pokeball-cursor.svg') 12 12,
+    url('./assets/cursors/pokeball-cursor.svg') 12 12,
+    pointer;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Pokemon title styling - met solid variant en verbeterde leesbaarheid */
+.title {
+    font-family: var(--font-family-pokemon);
+    font-size: 3.2rem;
+    color: var(--color-primary);
+    text-shadow: 2px 2px 0px var(--color-secondary), 3px 3px 0px rgba(0, 0, 0, 0.15);
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xl);
+    transform: perspective(500px) rotateX(10deg);
+
+    /* Verbeterde leesbaarheid technieken */
+    letter-spacing: 2px;
+    /* Subtiele outline */
+    -webkit-text-stroke: 0.5px var(--color-secondary);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Sterk vereenvoudigde Pokemon naam styling met flex voor perfecte centrering */
+.pokemonName {
+    /* Gebruik de hollow variant voor betere interne letterruimte */
+    font-family: var(--font-family-pokemon-hollow);
+    color: white;
+    background-color: var(--color-primary);
+    font-size: 2.5rem;
+    letter-spacing: 6px;
+    text-transform: capitalize;
+    border-bottom: 3px solid var(--color-secondary);
+
+}
+
+/* Media queries */
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.8rem;
+        transform: none;
+    }
 }

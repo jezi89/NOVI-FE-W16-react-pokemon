@@ -1,0 +1,46 @@
+.button {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-small);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-weight: var(--font-weight-bold);
+    cursor: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png') 12 12, pointer;
+    transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: var(--spacing-xs);
+    box-shadow: 0 4px 0 #e0b400, 0 6px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    top: 0;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    transform-style: preserve-3d;
+    z-index: 10; /* Toevoegen van z-index om ervoor te zorgen dat de knop "bovenop" zit */
+}
+
+.button:hover {
+    background-color: #ffd74a;
+    color: var(--color-primary);
+    box-shadow: 0 3px 0 #e0b400, 0 5px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    cursor: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png') 12 12, pointer;
+}
+
+.button:active {
+    top: 2px;
+    background-color: #ffbb00;
+    box-shadow: 0 2px 0 #e0b400, 0 3px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
+    cursor: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png') 12 12, pointer;
+}
+
+.button:disabled{
+    background-color: var(--color-medium-gray);
+    color: var(--color-dark-gray);
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="%23d11a2d"/><path d="M19.8 4.2L4.2 19.8" stroke="white" stroke-width="4" stroke-linecap="round"/></svg>') 12 12, not-allowed;
+    box-shadow: none;
+    top: 0;
+    opacity: 0.7;
+    transform: none;
+}

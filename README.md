@@ -33,7 +33,7 @@ Wanneer dit klaar is, kun je de applicatie starten met behulp van:
 npm run dev
 ```
 
-Open http://localhost:5173/ om de pagina in de browser te bekijken. Begin met het maken van wijzigingen
+Open http://localhost:5173/ om de page in de browser te bekijken. Begin met het maken van wijzigingen
 in `src/App.jsx`.
 
 ## Randvoorwaarden
@@ -59,7 +59,7 @@ Abilities:
    friend-guard
 ```
 
-* Er bevinden zich twee knoppen op de pagina: '_Vorige_' en '_Volgende_'. Wanneer de gebruiker op '_Volgende_' klikt,
+* Er bevinden zich twee knoppen op de page: '_Vorige_' en '_Volgende_'. Wanneer de gebruiker op '_Volgende_' klikt,
   worden de volgende 20 Pokèmon in de reeks opgehaald.
   De knoppen worden automatisch _disabled_ wanneer het begin of eind van de reeks bereikt is. De plek in de reeks moet
   dus worden bijgehouden in de state;
@@ -73,15 +73,16 @@ Soms is WebStorm niet zo slim!
 
 ## Globaal stappenplan
 
-1. Zorg er eerst voor dat je één Pokèmon(kaart) kunt laten zien op de pagina, zoals bijvoorbeeld JigglyPuff
+1. Zorg er eerst voor dat je één Pokèmon(kaart) kunt laten zien op de page, zoals bijvoorbeeld JigglyPuff
 2. Maak, op basis van deze code, een apart Pokèmon(kaart)-component die generiek te gebruiken is en test dit
    in `App.jsx` door zowel de informatie van _JigglyPuff_ en _Ditto_ weer te geven.
 3. Ga nu eens kijken hoe je een lijst van 20 Pokèmon-namen automatisch kunt ophalen in `App.jsx` en kunt weergeven op de
-   pagina. Welk endpoint heb je dan nodig? Breidt dit vervolgens uit door niet alleen de namen te laten zien, maar 20
+   page. Welk endpoint heb je dan nodig? Breidt dit vervolgens uit door niet alleen de namen te laten zien, maar 20
    Pokèmon(kaart)-componenten.
 4. Maak twee knoppen en bekijk de documentatie voor het ophalen van een lijst van pokémons nog eens goed. Wanneer de
    gebruiker op een knop klikt, zorg jij dat de volgende - of vorige - reeks Pokèmon worden opgehaald en weergegeven. De
    knoppen worden automatisch _disabled_ wanneer het begin of eind van de reeks bereikt is, dus houdt hier rekening mee.
 5. Zorg ervoor dat alle `error` en `loading` van alle requests worden gecommuniceerd met de gebruiker.
-6. Voorkom memoryleaks op alle mogelijke plekken. _Tip:_ zet `<React.StrictMode>` uit in `main.jsx` wanneer je hiermee aan
+6. Voorkom memoryleaks op alle mogelijke plekken. _Tip:_ zet `<React.StrictMode>` uit in `main.jsx` wanneer je hiermee
+   aan
    de slag gaat, anders worden als je requests twee keer aangeroepen en vaker gecancelled dan nodig is.
